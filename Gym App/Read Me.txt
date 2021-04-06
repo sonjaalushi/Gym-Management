@@ -1,0 +1,8 @@
+My final project is "Gym Management App". The programming language I've used is Java and some basic databaze (postgres).
+The first page is "LogIn Page" where the user of the app will put the username and password. If mone of them is incorrect it will appear a message "Incorrect password " or "Incorrect username".
+It has a "Show Password" Radio Button too, if we want to see our password.Then U have added "LogIn Button" and "Reset Button".
+If you click the "LogIn " one , it will switch to another frame which will be "Main Menu" of the application.In the Main Menu I've put 7 buttons and they all will open a new frame . 
+The "New Member Button" will open a new frame will many features like " Name, Mobile Number , Email, Gender ,Gym Time, Card ID ,Age and Amount to Pay. It has the "Save Button" and when ww click it all the datas will be saved on our database and on our Member List which consist to a table of all members.
+The "Back Button" will go back to the "Main Menu". "Update and Delete Member List " has similar features will the previous one , but there I've added the Search button where we will search a member by its ID Number.There are "Update Button" , "Delete Button and "Clear Button".
+Then we have "Member List" where are added all our members . After that we will open the frame of "Payment" where by searchinf the ID we will complete the necessary data and save them to the database table and to the table of payment on our App.I have put a "BMI Button" where by putting the wight and height of the members they will find their BMI. Other two buttons are "LogOut" and "Exit" Buttons.When we click them it will appear a message dialogoue asking : "Are you sure you want to exit?"or logout.
+It's a cool app and above all its very functional.

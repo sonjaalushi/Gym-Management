@@ -1,0 +1,179 @@
+package com.gymapp;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class BMI extends JFrame implements ActionListener {
+    JLabel bmiLabel = new JLabel("Calculate Your Body Mass Index");
+    JLabel heightLabel = new JLabel("Your Height (centimetres)");
+    JTextField heightField = new JTextField();
+    JLabel weightLabel = new JLabel("Your Wight (kilograms)");
+    JTextField weightField = new JTextField();
+    JButton computeBMI = new JButton("Compute BMI");
+    JLabel yourBMILabel = new JLabel("Your BMI");
+    JTextField yourBMIField = new JTextField();
+    JLabel categoriesLabel = new JLabel("BMI Categories:");
+    JLabel underweightLabel = new JLabel("Underweight = <18.5");
+    JLabel normalWeightLabel = new JLabel("Normal weight = 18.5–24.9");
+    JLabel overweightLabel = new JLabel("Overweight  = 25–29.9");
+    JLabel obesityLabel = new JLabel("Obesity = BMI of 30 or greater");
+    JFrame frame = new JFrame();
+    JButton backButton = new JButton("Back");
+    JButton clearButton = new JButton("Clear");
+
+    BMI() {
+        bmiLabel.setBounds(65, 69, 870, 50);
+        bmiLabel.setFocusable(false);
+        bmiLabel.setForeground(new Color(212, 157, 66));
+        bmiLabel.setFocusable(false);
+        bmiLabel.setBackground(new Color(43, 46, 74));
+        bmiLabel.setOpaque(true);
+        bmiLabel.setFont(new Font("Poppins", Font.BOLD, 50));
+
+        heightLabel.setBounds(65, 200, 250, 50);
+        heightLabel.setFocusable(false);
+        heightLabel.setFocusable(false);
+        heightLabel.setForeground(new Color(212, 157, 66));
+        heightLabel.setBackground(new Color(43, 46, 74));
+        heightLabel.setOpaque(true);
+        heightLabel.setFont(new Font("Poppins", Font.BOLD, 18));
+
+        weightLabel.setBounds(65, 300, 250, 40);
+        weightLabel.setFocusable(false);
+        weightLabel.setFocusable(false);
+        weightLabel.setForeground(new Color(212, 157, 66));
+        weightLabel.setBackground(new Color(43, 46, 74));
+        weightLabel.setOpaque(true);
+        weightLabel.setFont(new Font("Poppins", Font.BOLD, 20));
+
+        yourBMILabel.setBounds(65, 500, 100, 50);
+        yourBMILabel.setFocusable(false);
+        yourBMILabel.setFocusable(false);
+        yourBMILabel.setForeground(new Color(212, 157, 66));
+        yourBMILabel.setBackground(new Color(43, 46, 74));
+        yourBMILabel.setOpaque(true);
+        yourBMILabel.setFont(new Font("Poppins", Font.BOLD, 20));
+
+        categoriesLabel.setBounds(635, 200, 200, 50);
+        categoriesLabel.setFocusable(false);
+        categoriesLabel.setFocusable(false);
+        categoriesLabel.setForeground(new Color(212, 157, 66));
+        categoriesLabel.setBackground(new Color(43, 46, 74));
+        categoriesLabel.setOpaque(true);
+        categoriesLabel.setFont(new Font("Poppins", Font.BOLD, 22));
+
+        underweightLabel.setBounds(635, 300, 300, 50);
+        underweightLabel.setFocusable(false);
+        underweightLabel.setFocusable(false);
+        underweightLabel.setForeground(new Color(212, 157, 66));
+        underweightLabel.setBackground(new Color(43, 46, 74));
+        underweightLabel.setOpaque(true);
+        underweightLabel.setFont(new Font("Poppins", Font.BOLD, 20));
+
+        normalWeightLabel.setBounds(635, 400, 300, 50);
+        normalWeightLabel.setFocusable(false);
+        normalWeightLabel.setFocusable(false);
+        normalWeightLabel.setForeground(new Color(212, 157, 66));
+        normalWeightLabel.setBackground(new Color(43, 46, 74));
+        normalWeightLabel.setOpaque(true);
+        normalWeightLabel.setFont(new Font("Poppins", Font.BOLD, 20));
+
+        overweightLabel.setBounds(635, 500, 300, 50);
+        overweightLabel.setFocusable(false);
+        overweightLabel.setFocusable(false);
+        overweightLabel.setForeground(new Color(212, 157, 66));
+        overweightLabel.setBackground(new Color(43, 46, 74));
+        overweightLabel.setOpaque(true);
+        overweightLabel.setFont(new Font("Poppins", Font.BOLD, 20));
+
+        obesityLabel.setBounds(635, 600, 300, 50);
+        obesityLabel.setFocusable(false);
+        obesityLabel.setFocusable(false);
+        obesityLabel.setForeground(new Color(212, 157, 66));
+        obesityLabel.setBackground(new Color(43, 46, 74));
+        obesityLabel.setOpaque(true);
+        obesityLabel.setFont(new Font("Poppins", Font.BOLD, 20));
+
+        heightField.setBounds(365, 200, 200, 50);
+        heightField.setFont(new Font("Poppins", Font.PLAIN, 20));
+
+        weightField.setBounds(365, 300, 200, 50);
+        weightField.setFont(new Font("Poppins", Font.PLAIN, 20));
+
+        yourBMIField.setBounds(250, 500, 300, 50);
+        yourBMIField.setFont(new Font("Poppins", Font.PLAIN, 20));
+
+        computeBMI.setBounds(190, 400, 275, 50);
+        computeBMI.setFocusable(false);
+        computeBMI.setFont(new Font("Poppins", Font.BOLD, 25));
+        computeBMI.addActionListener(this);
+        computeBMI.setFocusable(false);
+        computeBMI.setForeground(new Color(83, 53, 74));
+        computeBMI.setBackground(new Color(212, 157, 66));
+        computeBMI.setOpaque(true);
+
+        backButton.setBounds(65, 600, 200, 50);
+        backButton.setFocusable(false);
+        backButton.setFont(new Font("Poppins", Font.BOLD, 20));
+        backButton.addActionListener(this);
+        backButton.setFocusable(false);
+        backButton.setForeground(new Color(83, 53, 74));
+        backButton.setBackground(new Color(212, 157, 66));
+        backButton.setOpaque(true);
+
+        clearButton.setBounds(300, 600, 200, 50);
+        clearButton.setFocusable(false);
+        clearButton.setFont(new Font("Poppins", Font.BOLD, 20));
+        clearButton.addActionListener(this);
+        clearButton.setFocusable(false);
+        clearButton.setForeground(new Color(83, 53, 74));
+        clearButton.setBackground(new Color(212, 157, 66));
+        clearButton.setOpaque(true);
+
+        frame.setTitle(" Body Mass Index");
+        frame.add(bmiLabel);
+        frame.add(heightLabel);
+        frame.add(heightField);
+        frame.add(weightLabel);
+        frame.add(weightField);
+        frame.add(computeBMI);
+        frame.add(yourBMILabel);
+        frame.add(yourBMIField);
+        frame.add(categoriesLabel);
+        frame.add(underweightLabel);
+        frame.add(normalWeightLabel);
+        frame.add(overweightLabel);
+        frame.add(obesityLabel);
+        frame.add(backButton);
+        frame.add(clearButton);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1000, 1000);
+        frame.setLayout(null);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        frame.getContentPane().setBackground(new Color(43, 46, 74));
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == backButton) {
+            frame.dispose();
+            new MainMenu();
+        }
+
+        if (e.getSource() == clearButton) {
+            weightField.setText("");
+            heightField.setText("");
+            yourBMIField.setText("");
+        }
+
+        if (e.getSource() == computeBMI) {
+            double weight = Double.parseDouble(weightField.getText());
+            double height = Double.parseDouble(heightField.getText());
+
+            double bmi = (weight / height / height) * 10000;
+            yourBMIField.setText(String.valueOf(bmi));
+        }
+    }
+}

@@ -1,0 +1,282 @@
+package com.gymapp;
+
+import project.ConnectionProvider;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
+
+public class UpdateDeleteMember implements ActionListener {
+
+    JFrame frame = new JFrame();
+    JLabel updateDeleteMember = new JLabel("UPDATE & DELETE MEMBER");
+    JLabel memberID = new JLabel("Member ID");
+    JTextField idNumber = new JTextField();
+    JLabel memberName = new JLabel("Name");
+    JTextField memberNameField = new JTextField();
+    JLabel mobileNumber = new JLabel("Mobile Number");
+    JTextField mobileNumberField = new JTextField();
+    JLabel email = new JLabel("Email");
+    JTextField emailField = new JTextField();
+    JLabel gender = new JLabel("Gender");
+    JComboBox genderBox = new JComboBox();
+    JLabel gymTime = new JLabel("Gym Time");
+    JComboBox timeBox = new JComboBox();
+    JLabel cardId = new JLabel("Card ID");
+    JTextField cardField = new JTextField();
+    JLabel age = new JLabel("Age");
+    JTextField ageField = new JTextField();
+    JLabel amount = new JLabel("Amount to Pay");
+    JTextField amountField = new JTextField();
+    JButton updateButton = new JButton("Update");
+    JButton clearButton = new JButton("Clear");
+    JButton backButton = new JButton("Back");
+    JButton searchButton = new JButton("Search");
+    JButton deleteButton = new JButton("Delete");
+
+    UpdateDeleteMember() {
+        updateDeleteMember.setBounds(500, 85, 700, 71);
+        updateDeleteMember.setFont(new Font("Poppins", Font.BOLD, 40));
+        updateDeleteMember.setForeground(new Color(217, 118, 67));
+
+        memberID.setBounds(116, 169, 117, 100);
+        memberID.setFont(new Font("Poppins", Font.BOLD, 20));
+        memberID.setForeground(new Color(212, 157, 66));
+
+        idNumber.setBounds(255, 200, 80, 28);
+        idNumber.setFont(new Font("Poppins", Font.BOLD, 20));
+        idNumber.setForeground(new Color(212, 157, 66));
+
+        memberName.setBounds(116, 282, 62, 28);
+        memberName.setFont(new Font("Poppins", Font.BOLD, 20));
+        memberName.setForeground(new Color(212, 157, 66));
+
+        memberNameField.setBounds(116, 322, 500, 25);
+        memberNameField.setFont(new Font("Poppins", Font.PLAIN, 16));
+
+        mobileNumber.setBounds(116, 385, 175, 28);
+        mobileNumber.setFont(new Font("Poppins", Font.BOLD, 20));
+        mobileNumber.setForeground(new Color(212, 157, 66));
+
+        mobileNumberField.setBounds(116, 425, 500, 25);
+        mobileNumberField.setFont(new Font("Poppins", Font.PLAIN, 16));
+
+        email.setBounds(116, 500, 60, 28);
+        email.setFont(new Font("Poppins", Font.BOLD, 20));
+        email.setForeground(new Color(212, 157, 66));
+
+        emailField.setBounds(116, 540, 500, 25);
+        emailField.setFont(new Font("Poppins", Font.PLAIN, 16));
+
+        gender.setBounds(116, 615, 76, 28);
+        gender.setFont(new Font("Poppins", Font.BOLD, 20));
+        gender.setForeground(new Color(212, 157, 66));
+
+        genderBox.setBounds(116, 655, 500, 25);
+        genderBox.setFont(new Font("Poppins", Font.PLAIN, 16));
+        genderBox.setModel(new DefaultComboBoxModel<>(new String[]{"Male", "Female", "Others"}));
+        genderBox.addActionListener(this);
+
+        gymTime.setBounds(751, 282, 105, 28);
+        gymTime.setFont(new Font("Poppins", Font.BOLD, 20));
+        gymTime.setForeground(new Color(212, 157, 66));
+
+        timeBox.setBounds(751, 322, 500, 25);
+        timeBox.setFont(new Font("Poppins", Font.PLAIN, 16));
+        timeBox.setModel(new DefaultComboBoxModel<>(new String[]{"05:00 - 09:00", "09:00 - 13:00", "13:00 - 17:00", "17:00 - 21:00"}));
+        timeBox.addActionListener(this);
+
+        cardId.setBounds(751, 385, 80, 28);
+        cardId.setFont(new Font("Poppins", Font.BOLD, 20));
+        cardId.setForeground(new Color(212, 157, 66));
+
+        cardField.setBounds(751, 425, 500, 25);
+        cardField.setFont(new Font("Poppins", Font.PLAIN, 16));
+
+        age.setBounds(751, 500, 41, 28);
+        age.setFont(new Font("Poppins", Font.BOLD, 20));
+        age.setForeground(new Color(212, 157, 66));
+
+        ageField.setBounds(751, 540, 500, 25);
+        ageField.setFont(new Font("Poppins", Font.PLAIN, 16));
+
+        amount.setBounds(751, 615, 160, 28);
+        amount.setFont(new Font("Poppins", Font.BOLD, 20));
+        amount.setForeground(new Color(212, 157, 66));
+
+        amountField.setBounds(751, 655, 500, 25);
+        amountField.setFont(new Font("Poppins", Font.PLAIN, 16));
+
+        backButton.setBounds(116, 107, 70, 28);
+        backButton.setFocusable(false);
+        backButton.addActionListener(this);
+        backButton.setFocusable(false);
+        backButton.setForeground(new Color(83, 53, 74));
+        backButton.setBackground(new Color(212, 157, 66));
+        backButton.setOpaque(true);
+
+        updateButton.setBounds(370, 731, 150, 50);
+        updateButton.setFocusable(false);
+        updateButton.addActionListener(this);
+        updateButton.setFont(new Font("Poppins", Font.BOLD, 18));
+        updateButton.setFocusable(false);
+        updateButton.setForeground(new Color(83, 53, 74));
+        updateButton.setBackground(new Color(212, 157, 66));
+        updateButton.setOpaque(true);
+
+        clearButton.setBounds(645, 731, 150, 50);
+        clearButton.setFocusable(false);
+        clearButton.addActionListener(this);
+        clearButton.setFont(new Font("Poppins", Font.BOLD, 18));
+        clearButton.setFocusable(false);
+        clearButton.setForeground(new Color(83, 53, 74));
+        clearButton.setBackground(new Color(212, 157, 66));
+        clearButton.setOpaque(true);
+
+        searchButton.setBounds(380, 200, 100, 28);
+        searchButton.setFocusable(false);
+        searchButton.addActionListener(this);
+        searchButton.setFocusable(false);
+        searchButton.setForeground(new Color(83, 53, 74));
+        searchButton.setBackground(new Color(212, 157, 66));
+        searchButton.setOpaque(true);
+
+        deleteButton.setBounds(920, 731, 150, 50);
+        deleteButton.setFocusable(false);
+        deleteButton.addActionListener(this);
+        deleteButton.setFont(new Font("Poppins", Font.BOLD, 18));
+        deleteButton.setFocusable(false);
+        deleteButton.setForeground(new Color(83, 53, 74));
+        deleteButton.setBackground(new Color(212, 157, 66));
+        deleteButton.setOpaque(true);
+
+        frame.setTitle("Update & Delete Member");
+        frame.add(updateDeleteMember);
+        frame.add(memberID);
+        frame.add(idNumber);
+        frame.add(memberName);
+        frame.add(memberNameField);
+        frame.add(mobileNumber);
+        frame.add(mobileNumberField);
+        frame.add(email);
+        frame.add(emailField);
+        frame.add(gender);
+        frame.add(genderBox);
+        frame.add(gymTime);
+        frame.add(timeBox);
+        frame.add(cardId);
+        frame.add(cardField);
+        frame.add(age);
+        frame.add(ageField);
+        frame.add(amount);
+        frame.add(amountField);
+        frame.add(updateButton);
+        frame.add(clearButton);
+        frame.add(backButton);
+        frame.add(searchButton);
+        frame.add(deleteButton);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1440, 900);
+        frame.setLayout(null);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        frame.getContentPane().setBackground(new Color(105, 60, 114));
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == backButton) {
+            frame.dispose();
+            new MainMenu();
+        }
+
+        if (e.getSource() == clearButton) {
+            memberNameField.setText("");
+            mobileNumberField.setText("");
+            emailField.setText("");
+            cardField.setText("");
+            ageField.setText("");
+            amountField.setText("");
+            idNumber.setText("");
+        }
+
+        if (e.getSource() == searchButton) {
+            int checkid = 0;
+            String id = idNumber.getText();
+            try {
+                Connection con = ConnectionProvider.getCon();
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery("select *from member where id='" + id + "'");
+                while (rs.next()) {
+                    checkid = 1;
+                    memberNameField.setText(rs.getString(2));
+                    mobileNumberField.setText(rs.getString(3));
+                    emailField.setText(rs.getString(4));
+                    genderBox.setSelectedItem(rs.getString(5));
+                    timeBox.setSelectedItem(rs.getString(6));
+                    cardField.setText(rs.getString(7));
+                    ageField.setText(rs.getString(8));
+                    amountField.setText(rs.getString(9));
+                }
+                if (checkid == 0) {
+                    JOptionPane.showMessageDialog(null, "Member ID does not Exist");
+                }
+            } catch (Exception e1) {
+                JOptionPane.showMessageDialog(null, e1);
+            }
+        }
+
+        if (e.getSource() == updateButton) {
+            String id = idNumber.getText();
+            String name = memberNameField.getText();
+            String mobile = mobileNumberField.getText();
+            String email = emailField.getText();
+            String gender = (String) genderBox.getSelectedItem();
+            String time = (String) timeBox.getSelectedItem();
+            String personalnumber = cardField.getText();
+            String age = ageField.getText();
+            String amount = amountField.getText();
+            try {
+                Connection con = ConnectionProvider.getCon();
+                PreparedStatement ps = con.prepareStatement("update member set name=?,mobile=?,email=?,gender=?,personalnumber=?,age=?,amount=? where id=?");
+                Dublicate(id, name, mobile, email, gender, personalnumber, age, amount, ps);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Successfully Updated");
+                frame.dispose();
+                new UpdateDeleteMember();
+            } catch (Exception e1) {
+                JOptionPane.showMessageDialog(null, e1);
+            }
+        }
+
+        if (e.getSource() == deleteButton) {
+            int yesNo = JOptionPane.showConfirmDialog(null, "Do you want to Delete", "Select", JOptionPane.YES_NO_OPTION);
+            if (yesNo == 0) {
+                String id = idNumber.getText();
+                try {
+                    Connection con = ConnectionProvider.getCon();
+                    Statement st = con.createStatement();
+                    st.executeUpdate("delete  from member where id='" + id + "'");
+                    JOptionPane.showMessageDialog(null, "Successfully Deleted");
+                    frame.dispose();
+                    UpdateDeleteMember updateDeleteMember = new UpdateDeleteMember();
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(null, e1);
+                }
+            }
+        }
+    }
+
+    static void Dublicate(String id, String name, String mobile, String email, String gender, String personalnumber, String age, String amount, PreparedStatement ps) throws SQLException {
+        ps.setString(1, name);
+        ps.setString(2, mobile);
+        ps.setString(3, email);
+        ps.setString(4, gender);
+        ps.setString(5, personalnumber);
+        ps.setString(6, age);
+        ps.setString(7, amount);
+        ps.setString(8, id);
+    }
+}

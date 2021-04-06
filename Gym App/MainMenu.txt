@@ -1,0 +1,153 @@
+package com.gymapp;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class MainMenu implements ActionListener {
+
+    JFrame frame = new JFrame();
+    JLabel welcomeLabel = new JLabel("Hello!");
+    JButton newMember = new JButton("New Member");
+    JButton updateDeleteMember = new JButton("Update & Delete Member");
+    JButton memberList = new JButton("List of Members");
+    JButton payment = new JButton("Payment");
+    JButton logout = new JButton("Logout");
+    JButton exit = new JButton("Exit");
+    JButton bmi = new JButton("BMI");
+
+    MainMenu() {
+
+        bmi.setBounds(590, 150, 150, 40);
+        bmi.setFocusable(false);
+        bmi.addActionListener(this);
+        bmi.setFocusable(false);
+        bmi.setForeground(new Color(83, 53, 74));
+        bmi.setBackground(new Color(212, 157, 66));
+        bmi.setOpaque(true);
+        bmi.setFont(new Font("Poppins", Font.BOLD, 16));
+
+        welcomeLabel.setBounds(285, 335, 876, 99);
+        welcomeLabel.setFont(new Font("Poppins", Font.BOLD, 50));
+        welcomeLabel.setText("Hello Sonja, welcome back!");
+        welcomeLabel.setForeground(new Color(232, 69, 69));
+
+        newMember.setBounds(68, 56, 150, 40);
+        newMember.setFocusable(false);
+        newMember.addActionListener(this);
+        newMember.setFocusable(false);
+        newMember.setForeground(new Color(83, 53, 74));
+        newMember.setBackground(new Color(212, 157, 66));
+        newMember.setOpaque(true);
+        newMember.setFont(new Font("Poppins", Font.BOLD, 16));
+
+        updateDeleteMember.setBounds(268, 56, 250, 40);
+        updateDeleteMember.setFocusable(false);
+        updateDeleteMember.addActionListener(this);
+        updateDeleteMember.setFocusable(false);
+        updateDeleteMember.setForeground(new Color(83, 53, 74));
+        updateDeleteMember.setBackground(new Color(212, 157, 66));
+        updateDeleteMember.setOpaque(true);
+        updateDeleteMember.setFont(new Font("Poppins", Font.BOLD, 16));
+
+        memberList.setBounds(568, 56, 200, 40);
+        memberList.setFocusable(false);
+        memberList.addActionListener(this);
+        memberList.setFocusable(false);
+        memberList.setForeground(new Color(83, 53, 74));
+        memberList.setBackground(new Color(212, 157, 66));
+        memberList.setOpaque(true);
+        memberList.setFont(new Font("Poppins", Font.BOLD, 16));
+
+        payment.setBounds(818, 56, 150, 40);
+        payment.setFocusable(false);
+        payment.addActionListener(this);
+        payment.setForeground(new Color(83, 53, 74));
+        payment.setFocusable(false);
+        payment.setBackground(new Color(212, 157, 66));
+        payment.setOpaque(true);
+        payment.setFont(new Font("Poppins", Font.BOLD, 16));
+
+        logout.setBounds(1018, 56, 130, 40);
+        logout.setFocusable(false);
+        logout.addActionListener(this);
+        logout.setFocusable(false);
+        logout.setForeground(new Color(83, 53, 74));
+        logout.setBackground(new Color(212, 157, 66));
+        logout.setOpaque(true);
+        logout.setFont(new Font("Poppins", Font.BOLD, 16));
+
+        exit.setBounds(1198, 56, 100, 40);
+        exit.setFocusable(false);
+        exit.addActionListener(this);
+        exit.setFocusable(false);
+        exit.setForeground(new Color(83, 53, 74));
+        exit.setBackground(new Color(212, 157, 66));
+        exit.setOpaque(true);
+        exit.setFont(new Font("Poppins", Font.BOLD, 16));
+
+
+        frame.setTitle("Main Menu");
+        frame.add(bmi);
+        frame.add(welcomeLabel);
+        frame.add(newMember);
+        frame.add(updateDeleteMember);
+        frame.add(memberList);
+        frame.add(payment);
+        frame.add(logout);
+        frame.add(exit);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1400, 900);
+        frame.setLayout(null);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        frame.getContentPane().setBackground(new Color(43, 46, 74));
+    }
+
+
+    @Override
+
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == logout) {
+            int yesNo = JOptionPane.showConfirmDialog(null, "Do you want to Logout", "Logout", JOptionPane.YES_NO_OPTION);
+            if (yesNo == 0) {
+                new LoginPage();
+                frame.dispose();
+            }
+        }
+
+        if (e.getSource() == exit) {
+            int yesNo = JOptionPane.showConfirmDialog(null, "Do you want to Exit", "Exit", JOptionPane.YES_NO_OPTION);
+            if (yesNo == 0) {
+                System.exit(0);
+            }
+        }
+
+        if (e.getSource() == newMember) {
+            new NewMember();
+            frame.dispose();
+        }
+
+        if (e.getSource() == updateDeleteMember) {
+            new UpdateDeleteMember();
+            frame.dispose();
+        }
+
+        if (e.getSource() == memberList) {
+            new MemberList();
+            frame.dispose();
+        }
+
+        if (e.getSource() == payment) {
+            new Payment();
+            frame.dispose();
+        }
+
+        if (e.getSource() == bmi) {
+            new BMI();
+            frame.dispose();
+        }
+    }
+}

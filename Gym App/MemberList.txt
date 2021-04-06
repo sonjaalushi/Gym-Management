@@ -1,0 +1,72 @@
+package com.gymapp;
+
+import project.ConnectionProvider;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class MemberList extends JFrame implements ActionListener {
+    DefaultTableModel mTableModel;
+    JButton backButton = new JButton("Back");
+    JFrame frame = new JFrame();
+    JTable table;
+
+    MemberList() {
+
+        Object[][] rowData = {};
+        String[] columnNames = {"Member ID", "Name", "Mobile Number", "Email", "Gender", "Gym Time", "Personal Number", "Age", "Amount"};
+
+        mTableModel = new DefaultTableModel(rowData, columnNames);
+        table = new JTable(mTableModel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JScrollPane scrollPane = new JScrollPane(table);
+        frame.setTitle("Member List");
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.setSize(1400, 900);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        frame.add(backButton, BorderLayout.WEST);
+        table.setBackground(new Color(212, 157, 66));
+
+        backButton.setFocusable(false);
+        backButton.addActionListener(this);
+        backButton.setFocusable(false);
+        backButton.setForeground(new Color(83, 53, 74));
+        backButton.setBackground(new Color(212, 157, 66));
+        backButton.setOpaque(true);
+        try {
+            Connection con = ConnectionProvider.getCon();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM member");
+
+            while (rs.next()) {
+                String id = rs.getString("id");
+                String name = rs.getString("name");
+                String mobile = rs.getString("mobile");
+                String email = rs.getString("email");
+                String gender = rs.getString("gender");
+                String time = rs.getString("time");
+                String personalnumber = rs.getString("personalnumber");
+                String age = rs.getString("age");
+                String amount = rs.getString("amount");
+                mTableModel.addRow(new Object[]{id, name, mobile, email, gender, time, personalnumber, age, amount});
+            }
+        } catch (Exception e1) {
+            JOptionPane.showMessageDialog(null, e1);
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == backButton) {
+            frame.dispose();
+            new MainMenu();
+        }
+    }
+}

@@ -1,0 +1,117 @@
+package com.gymapp;
+
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+
+public class LoginPage implements ActionListener {
+
+    JFrame frame = new JFrame();
+    JButton loginButton = new JButton("Login");
+    JButton resetButton = new JButton("Reset");
+    JTextField usernameField = new JTextField();
+    JPasswordField passwordField = new JPasswordField();
+    JLabel userLabel = new JLabel("Username:");
+    JLabel passLabel = new JLabel("Password:");
+    JLabel messageLabel = new JLabel();
+    JLabel loginLabel = new JLabel("Login");
+    JCheckBox showPass = new JCheckBox("Show password");
+
+
+    LoginPage() {
+        loginLabel.setBounds(150, -150, 200, 400);
+        loginLabel.setFont(new Font("Poppins", Font.BOLD, 38));
+        loginLabel.setForeground(new Color(232, 69, 69));
+
+        userLabel.setBounds(50, 100, 75, 25);
+        userLabel.setForeground(new Color(232, 69, 69));
+        passLabel.setBounds(50, 150, 75, 25);
+        passLabel.setForeground(new Color(232, 69, 69));
+
+
+        messageLabel.setBounds(130, 300, 250, 35);
+        messageLabel.setFont(new Font(null, Font.PLAIN, 14));
+
+        usernameField.setBounds(125, 100, 200, 25);
+        passwordField.setBounds(125, 150, 200, 25);
+
+        loginButton.setBounds(125, 200, 90, 25);
+        loginButton.setFocusable(false);
+        loginButton.addActionListener(this);
+        loginButton.setForeground(new Color(83, 53, 74));
+        loginButton.setBackground(new Color(212, 157, 66));
+        loginButton.setOpaque(true);
+
+        resetButton.setBounds(235, 200, 90, 25);
+        resetButton.addActionListener(this);
+        resetButton.setFocusable(false);
+        resetButton.setForeground(new Color(83, 53, 74));
+        resetButton.setBackground(new Color(212, 157, 66));
+        resetButton.setOpaque(true);
+
+        showPass.setBounds(160, 250, 140, 25);
+        showPass.setFocusable(false);
+        showPass.addActionListener(this);
+        showPass.setForeground(new Color(212, 157, 66));
+        showPass.setFont(new Font("Poppins", Font.BOLD, 13));
+        showPass.setBackground(new Color(43, 46, 74));
+        showPass.setOpaque(true);
+
+        frame.setTitle("Login");
+        frame.getContentPane().setBackground(new Color(43, 46, 74));
+        frame.add(userLabel);
+        frame.add(passLabel);
+        frame.add(messageLabel);
+        frame.add(usernameField);
+        frame.add(passwordField);
+        frame.add(loginButton);
+        frame.add(resetButton);
+        frame.add(loginLabel);
+        frame.add(showPass);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(420, 420);
+        frame.setLayout(null);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        // Show Password
+        if (showPass.isSelected()) {
+            passwordField.setEchoChar((char) 0);
+        } else {
+            passwordField.setEchoChar('•');
+        }
+
+        // Reset Button
+        if (e.getSource() == resetButton) {
+            usernameField.setText("");
+            passwordField.setText("");
+        }
+
+        // Login Button
+        if (e.getSource() == loginButton) {
+
+            String username = usernameField.getText();
+            String password = String.valueOf(passwordField.getPassword());
+
+            if (username.equals("Sonja") && password.equals("sonja11")) {
+                frame.dispose();
+                MainMenu mainMenu = new MainMenu();
+            } else if (!username.equals("Sonja")) {
+                messageLabel.setForeground(Color.red);
+                messageLabel.setText("Username not found");
+            } else {
+                messageLabel.setForeground(Color.red);
+                messageLabel.setText("Wrong password");
+            }
+        }
+    }
+}

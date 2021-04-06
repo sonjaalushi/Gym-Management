@@ -1,0 +1,294 @@
+package com.gymapp;
+
+import project.ConnectionProvider;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
+public class Payment implements ActionListener {
+    JFrame frame = new JFrame();
+    JLabel payment = new JLabel("PAYMENT");
+    JLabel memberID = new JLabel("Member ID");
+    JTextField idNumber = new JTextField();
+    JLabel memberName = new JLabel("Name");
+    JTextField memberNameField = new JTextField();
+    JLabel mobileNumber = new JLabel("Mobile Number");
+    JTextField mobileNumberField = new JTextField();
+    JLabel email = new JLabel("Email");
+    JTextField emailField = new JTextField();
+    JLabel amount = new JLabel("Amount to Pay");
+    JTextField amountField = new JTextField();
+    JButton saveButton = new JButton("Save");
+    JButton clearButton = new JButton("Clear");
+    JButton backButton = new JButton("Back");
+    JButton searchButton = new JButton("Search");
+    JPanel panel = new JPanel();
+    JLayeredPane panel2 = new JLayeredPane();
+    JLabel dateLabel = new JLabel("Date");
+    JLabel paymentDate = new JLabel("dd/mm/yyyy");
+    JTable memberTable;
+    DefaultTableModel mTableModel;
+    JButton deleteButton = new JButton("Delete");
+
+    Payment() {
+        payment.setBounds(243, 17, 250, 50);
+        payment.setFont(new Font("Poppins", Font.BOLD, 40));
+        payment.setForeground(new Color(217, 118, 67));
+
+        dateLabel.setBounds(60, 157, 80, 28);
+        dateLabel.setFont(new Font("Poppins", Font.BOLD, 20));
+        dateLabel.setForeground(new Color(212, 157, 66));
+
+        paymentDate.setBounds(177, 157, 117, 28);
+        paymentDate.setFont(new Font("Poppins", Font.PLAIN, 16));
+
+        memberID.setBounds(60, 104, 117, 28);
+        memberID.setFont(new Font("Poppins", Font.BOLD, 16));
+        memberID.setForeground(new Color(212, 157, 66));
+
+        idNumber.setBounds(208, 104, 80, 28);
+        idNumber.setFont(new Font("Poppins", Font.BOLD, 20));
+        idNumber.setForeground(new Color(212, 157, 66));
+
+        memberName.setBounds(60, 210, 62, 28);
+        memberName.setFont(new Font("Poppins", Font.BOLD, 20));
+        memberName.setForeground(new Color(212, 157, 66));
+
+        memberNameField.setBounds(60, 263, 500, 25);
+        memberNameField.setFont(new Font("Poppins", Font.PLAIN, 16));
+
+        mobileNumber.setBounds(60, 316, 175, 28);
+        mobileNumber.setFont(new Font("Poppins", Font.BOLD, 20));
+        mobileNumber.setForeground(new Color(212, 157, 66));
+
+        mobileNumberField.setBounds(60, 369, 500, 25);
+        mobileNumberField.setFont(new Font("Poppins", Font.PLAIN, 16));
+
+        email.setBounds(60, 422, 60, 28);
+        email.setFont(new Font("Poppins", Font.BOLD, 20));
+        email.setForeground(new Color(212, 157, 66));
+
+        emailField.setBounds(60, 475, 500, 25);
+        emailField.setFont(new Font("Poppins", Font.PLAIN, 16));
+
+        amount.setBounds(60, 528, 160, 28);
+        amount.setFont(new Font("Poppins", Font.BOLD, 20));
+        amount.setForeground(new Color(212, 157, 66));
+
+        amountField.setBounds(60, 581, 500, 25);
+        amountField.setFont(new Font("Poppins", Font.PLAIN, 16));
+
+        backButton.setBounds(60, 28, 70, 28);
+        backButton.setFocusable(false);
+        backButton.addActionListener(this);
+        backButton.setFocusable(false);
+        backButton.setForeground(new Color(83, 53, 74));
+        backButton.setBackground(new Color(212, 157, 66));
+        backButton.setOpaque(true);
+
+        saveButton.setBounds(60, 634, 150, 50);
+        saveButton.setFocusable(false);
+        saveButton.addActionListener(this);
+        saveButton.setFont(new Font("Poppins", Font.BOLD, 18));
+        saveButton.setFocusable(false);
+        saveButton.setForeground(new Color(83, 53, 74));
+        saveButton.setBackground(new Color(212, 157, 66));
+        saveButton.setOpaque(true);
+
+        clearButton.setBounds(310, 634, 150, 50);
+        clearButton.setFocusable(false);
+        clearButton.addActionListener(this);
+        clearButton.setFont(new Font("Poppins", Font.BOLD, 18));
+        clearButton.setFocusable(false);
+        clearButton.setForeground(new Color(83, 53, 74));
+        clearButton.setBackground(new Color(212, 157, 66));
+        clearButton.setOpaque(true);
+
+        searchButton.setBounds(319, 104, 100, 28);
+        searchButton.setFocusable(false);
+        searchButton.addActionListener(this);
+        searchButton.setFocusable(false);
+        searchButton.setForeground(new Color(83, 53, 74));
+        searchButton.setBackground(new Color(212, 157, 66));
+        searchButton.setOpaque(true);
+
+        deleteButton.setBounds(185, 720, 150, 50);
+        deleteButton.setFocusable(false);
+        deleteButton.addActionListener(this);
+        deleteButton.setFont(new Font("Poppins", Font.BOLD, 18));
+        deleteButton.setFocusable(false);
+        deleteButton.setForeground(new Color(83, 53, 74));
+        deleteButton.setBackground(new Color(212, 157, 66));
+        deleteButton.setOpaque(true);
+
+        String[] columns = new String[]{
+                "Month", "Amount"
+        };
+
+        Object[][] data = new Object[][]{
+        };
+
+        mTableModel = new DefaultTableModel(data, columns);
+        memberTable = new JTable(mTableModel);
+        JScrollPane scrollPane = new JScrollPane(memberTable);
+
+        panel.add(scrollPane, BorderLayout.CENTER);
+        panel.setPreferredSize(new Dimension(700, 700));
+        panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(0), "Payment", TitledBorder.CENTER, TitledBorder.TOP));
+        memberTable.setPreferredScrollableViewportSize(new Dimension(700, 1000));
+        //memberTable.setFillsViewportHeight(true);
+        memberTable.setFont(new Font("Poppins", Font.PLAIN, 14));
+
+        panel2.setPreferredSize(new Dimension(700, 1000));
+
+
+        panel.add(new JScrollPane(memberTable));
+        frame.add(panel, BorderLayout.EAST);
+        frame.add(panel2, BorderLayout.WEST);
+        frame.setTitle("Member List");
+        frame.setSize(1440, 900);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
+        frame.setTitle("Payment");
+        panel2.add(deleteButton);
+        panel2.add(payment);
+        panel2.add(memberID);
+        panel2.add(idNumber);
+        panel2.add(memberName);
+        panel2.add(memberNameField);
+        panel2.add(mobileNumber);
+        panel2.add(mobileNumberField);
+        panel2.add(email);
+        panel2.add(emailField);
+        panel2.add(amount);
+        panel2.add(amountField);
+        panel2.add(saveButton);
+        panel2.add(clearButton);
+        panel2.add(backButton);
+        panel2.add(searchButton);
+        panel2.add(dateLabel);
+        panel2.add(paymentDate);
+        frame.setSize(1440, 900);
+        frame.setLayout(new BorderLayout());
+    }
+
+    public void tableDetails() {
+        DefaultTableModel dtm = (DefaultTableModel) memberTable.getModel();
+        dtm.setRowCount(0);
+        String id = idNumber.getText();
+        try {
+            Connection con = ConnectionProvider.getCon();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select *from payment where id='" + id + "'");
+            while (rs.next()) {
+                dtm.addRow(new Object[]{rs.getString(2), rs.getString(3)});
+            }
+        } catch (Exception e1) {
+            JOptionPane.showMessageDialog(null, e1);
+        }
+    }
+
+    public void date() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        Date date = new Date();
+        String month = dateFormat.format(date);
+        paymentDate.setText(month);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == backButton) {
+            frame.dispose();
+            new MainMenu();
+        }
+
+        if (e.getSource() == clearButton) {
+            frame.dispose();
+            new Payment();
+        }
+
+        date();
+
+        if (e.getSource() == searchButton) {
+            tableDetails();
+            int checkid = 0;
+            String id = idNumber.getText();
+            String month = paymentDate.getText();
+            try {
+                Connection con = ConnectionProvider.getCon();
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery("select *from member where id='" + id + "'");
+                while (rs.next()) {
+                    checkid = 1;
+                    idNumber.setEditable(false);
+                    memberNameField.setText(rs.getString(2));
+                    mobileNumberField.setText(rs.getString(3));
+                    emailField.setText(rs.getString(4));
+                    amountField.setText(rs.getString(9));
+                }
+                if (checkid == 0) {
+                    JOptionPane.showMessageDialog(null, "Member ID does not Exist");
+
+                    ResultSet rs1 = st.executeQuery("select *from payment inner join member where payment.month='" +
+                            month + "' and payment.id'" + id + "' and member.id='" + id + "'");
+                    while (rs1.next()) {
+                        saveButton.setVisible(false);
+                        JOptionPane.showMessageDialog(null, "Payment is already done for this month");
+                    }
+                }
+            } catch (Exception e1) {
+                JOptionPane.showMessageDialog(null, e1);
+            }
+        }
+        if (e.getSource() == saveButton) {
+            String id = idNumber.getText();
+            String month = paymentDate.getText();
+            String amount = amountField.getText();
+            try {
+                Connection con = ConnectionProvider.getCon();
+                PreparedStatement ps = con.prepareStatement("insert into payment values (?,?,?)");
+                ps.setString(1, id);
+                ps.setString(2, month);
+                ps.setString(3, amount);
+                ps.executeUpdate();
+                //tableDetails();
+                JOptionPane.showMessageDialog(null, "Successfully Saved");
+                frame.dispose();
+                new Payment();
+            } catch (Exception e1) {
+                JOptionPane.showMessageDialog(null, e1);
+            }
+        }
+
+        if (e.getSource() == deleteButton) {
+            int yesNo = JOptionPane.showConfirmDialog(null, "Do you want to Delete", "Select", JOptionPane.YES_NO_OPTION);
+            if (yesNo == 0) {
+                String id = idNumber.getText();
+                try {
+                    Connection con = ConnectionProvider.getCon();
+                    Statement st = con.createStatement();
+                    st.executeUpdate("delete  from payment where id='" + id + "'");
+                    JOptionPane.showMessageDialog(null, "Successfully Deleted");
+                    frame.dispose();
+                    new Payment();
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(null, e1);
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,20 @@
+drop table if exists member;
+create table member(
+	id VARCHAR(200),
+	name VARCHAR(200),
+	mobile VARCHAR,
+	email VARCHAR(200),
+	gender VARCHAR(50),
+	time VARCHAR(50),
+	personalnumber VARCHAR(200),
+	age VARCHAR(50),
+	amount VARCHAR(200)
+);
+
+drop table if exists payment;
+create table payment(
+	id VARCHAR(200),
+	month VARCHAR(50),
+	amount VARCHAR(200)
+);
+
